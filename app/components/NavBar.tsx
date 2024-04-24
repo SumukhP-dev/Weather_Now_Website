@@ -15,7 +15,7 @@ const NavBar = () => {
       </div>
       <div className="flex">
         <div className="p-5">
-          <Link href="/">Home</Link>
+          <Link href="/home">Home</Link>
         </div>
         <div className="p-5">
           <Link href="/contact">Contact Us</Link>
