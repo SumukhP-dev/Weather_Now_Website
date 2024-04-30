@@ -7,6 +7,7 @@ import { BsSearch } from "react-icons/bs";
 import Weather from "../components/Weather";
 import Link from "next/link";
 import Spinner from "@/app/components/Spinner";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   const [city, setCity] = useState("London");
@@ -49,6 +50,21 @@ export default function HomePage() {
     return (
       <>
         <NavBar />
+
+        {/* Welcome Section */}
+        <div className="p-5">
+          <h1 className="flex h-10 items-center justify-center text-6xl">
+            Welcome to Weather Now
+          </h1>
+          <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
+            This is a weather tracking website to get both current and future
+            weather information that you may need using openweather's api
+            catalogue.
+          </p>
+          <p className="flex h-10 items-center justify-center p-3 text-xl">
+            Use the search bar below to search for a city's weather.
+          </p>
+        </div>
 
         {/* Search */}
         <div className="flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
