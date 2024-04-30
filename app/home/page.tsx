@@ -52,40 +52,15 @@ export default function HomePage() {
       setAlerts(response.data);
     });
     setLoading(false);
-    console.log(alerts);
-    console.log(state);
-    console.log(stateSymbol);
   };
 
-  if (loading) {
-    return (
-      <>
-        <NavBar />
-        <Spinner />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <NavBar />
-
-        {/* Welcome Section */}
-        <div className="p-5">
-          <h1 className="flex h-10 items-center justify-center text-6xl">
-            Welcome to Weather Now
-          </h1>
-          <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
-            This is a weather tracking website to get both current and future
-            weather information that you may need using openweather's api
-            catalogue.
-          </p>
-          <p className="flex h-10 items-center justify-center p-3 text-xl">
-            Use the search bar below to search for a city's weather.
-          </p>
-        </div>
-
-        {/* Search Weather */}
+  const SearchWeather = () => {
+    if (loading) {
+      return <Spinner />;
+    } else {
+      return (
         <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 z-10 ">
+          {/* Search Weather */}
           <form
             onSubmit={fetchWeather}
             className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
@@ -107,19 +82,17 @@ export default function HomePage() {
           {/* Weather */}
           <Weather data={weather} />
         </div>
+      );
+    }
+  };
 
-        {/* Alerts Section */}
-        <div className="p-5">
-          <h1 className="flex h-10 items-center justify-center text-5xl">
-            Alerts
-          </h1>
-          <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
-            Use the search bar below to search for alerts within the state.
-          </p>
-        </div>
-
-        {/* Search Alerts */}
-        <div className="m-auto pt-4 text-white">
+  const SearchAlerts = () => {
+    if (loading) {
+      return <Spinner />;
+    } else {
+      return (
+        <div className="m-auto pt-4 text-white mb-20">
+          {/* Search Alerts */}
           <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
             <form
               onSubmit={fetchAlerts}
@@ -142,7 +115,43 @@ export default function HomePage() {
           {/* Alerts */}
           <Alerts data={alerts} />
         </div>
-      </>
-    );
-  }
+      );
+    }
+  };
+
+  return (
+    <>
+      <NavBar />
+
+      {/* Welcome Section */}
+      <div className="p-5">
+        <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
+          Welcome to Weather Now
+        </h1>
+        <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
+          This is a weather tracking website to get both current and future
+          weather information that you may need using openweather's api
+          catalogue.
+        </p>
+        <p className="flex h-10 items-center justify-center p-3 text-xl">
+          Use the search bar below to search for a city's weather.
+        </p>
+      </div>
+
+      <SearchWeather />
+
+      {/* Weather Alerts Section */}
+      <div className="p-5 mt-20">
+        <h1 className="flex h-10 items-center justify-center text-5xl">
+          Weather Alerts
+        </h1>
+        <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
+          Use the search bar below to search for weather alerts within the
+          state.
+        </p>
+      </div>
+
+      <SearchAlerts />
+    </>
+  );
 }
