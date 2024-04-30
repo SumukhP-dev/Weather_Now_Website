@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/card": "^2.0.28",
     "axios": "^1.6.8",
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.1.0"
+    "react-icons": "^5.1.0",
+    "states-us": "^1.0.4",
+    "us-state-converter": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -7,14 +7,18 @@ import { BsSearch } from "react-icons/bs";
 import Weather from "../components/Weather";
 import Link from "next/link";
 import Spinner from "@/app/components/Spinner";
-import Footer from "../components/Footer";
+import Alerts from "@/app/components/Alerts";
 
 export default function HomePage() {
-  const [city, setCity] = useState("London");
+  const [city, setCity] = useState("Atlanta");
+  const [state, setState] = useState("Georgia");
   const [weather, setWeather] = useState({});
+  const [alerts, setAlerts] = useState({});
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
+
+  const states = require("us-state-converter");
 
   const convertCoorToCity = (resolve) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
@@ -37,6 +41,20 @@ export default function HomePage() {
       setWeather(response.data);
     });
     setLoading(false);
+  };
+
+  const fetchAlerts = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const stateSymbol = states.abbr(state);
+    const url3 = `https://api.weather.gov/alerts/active?area=${stateSymbol}`;
+    axios.get(url3).then((response) => {
+      setAlerts(response.data);
+    });
+    setLoading(false);
+    console.log(alerts);
+    console.log(state);
+    console.log(stateSymbol);
   };
 
   if (loading) {
@@ -66,8 +84,8 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Search */}
-        <div className="flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
+        {/* Search Weather */}
+        <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 z-10 ">
           <form
             onSubmit={fetchWeather}
             className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
@@ -88,6 +106,41 @@ export default function HomePage() {
 
           {/* Weather */}
           <Weather data={weather} />
+        </div>
+
+        {/* Alerts Section */}
+        <div className="p-5">
+          <h1 className="flex h-10 items-center justify-center text-5xl">
+            Alerts
+          </h1>
+          <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
+            Use the search bar below to search for alerts within the state.
+          </p>
+        </div>
+
+        {/* Search Alerts */}
+        <div className="m-auto pt-4 text-white">
+          <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
+            <form
+              onSubmit={fetchAlerts}
+              className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
+            >
+              <div>
+                <input
+                  id="stateInput"
+                  type="text"
+                  placeholder="Search state"
+                  className="bg-transparent border-none text-white focus:outline-none text-2xl"
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </div>
+              <button>
+                <BsSearch size={20} />
+              </button>
+            </form>
+          </div>
+          {/* Alerts */}
+          <Alerts data={alerts} />
         </div>
       </>
     );
