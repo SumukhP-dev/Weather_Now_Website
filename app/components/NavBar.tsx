@@ -18,13 +18,13 @@ const NavBar = () => {
           <Link href="/home">Home</Link>
         </div>
         <div className="p-5">
-          <Link href="/contact">Contact Us</Link>
+          <Link href="/home/contact">Contact Us</Link>
         </div>
         <div className="p-5">
-          <Link href="/forecast">Forecast</Link>
+          <Link href="/home/forecast">Forecast</Link>
         </div>
         <div className="p-5">
-          <Link href="/heatmap">Heatmap</Link>
+          <Link href="/home/heatmap">Heatmap</Link>
         </div>
       </div>
     </Nav>

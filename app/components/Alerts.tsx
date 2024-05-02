@@ -1,27 +1,31 @@
 import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+
 const Alerts = ({ data }) => {
   const renderWeatherAlerts = () => {
     if (data != null && JSON.stringify(data) != JSON.stringify({})) {
-      const alertInfo = data.features.map((element, i) => {
-        return <p key={i}>{element.properties.event}</p>;
+      const alertInfo = data.features.map((element) => {
+        return <p key={element}>{element.properties.event}</p>;
       });
       return (
         <>
           <div className="relative flex w-full text-gray-400">
-            {data.features.map((element, i) => {
+            {data.features.map((element) => {
               return (
                 <>
+                  {/* Alert card */}
                   <Card className="bg-slate-500 text-white p-10 m-5">
                     <CardHeader>
-                      <p key={i}>{element.properties.event}</p>
+                      <p key={element}>{element.properties.event}</p>
                     </CardHeader>
                     <CardBody>
-                      <p key={i}>Severity: {element.properties.severity}</p>
-                      <p key={i}>
+                      <p key={element}>
+                        Severity: {element.properties.severity}
+                      </p>
+                      <p key={element}>
                         Area Affected: {element.properties.areaDesc}
                       </p>
-                      <p key={i}>
+                      <p key={element}>
                         Description: {element.properties.description}
                       </p>
                     </CardBody>

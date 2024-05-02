@@ -6,7 +6,7 @@ const Weather = ({ data }) => {
     if (data != null && JSON.stringify(data) != JSON.stringify({})) {
       return (
         <>
-          <div className="relative flex flex-row w-full p-4  text-white z-10 mb-20 justify-center ">
+          <div className="relative flex flex-row w-full p-4 text-white z-10 mb-20 justify-center ">
             {/* Top */}
             <div className="relative flex justify-start pt-12 mr-20 ">
               <div className="flex flex-col items-center">

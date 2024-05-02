@@ -8,6 +8,7 @@ import Weather from "../components/Weather";
 import Link from "next/link";
 import Spinner from "@/app/components/Spinner";
 import Alerts from "@/app/components/Alerts";
+import getAbbrOfState from "@/app/components/StatesList";
 
 export default function HomePage() {
   const [city, setCity] = useState("Atlanta");
@@ -18,9 +19,14 @@ export default function HomePage() {
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
 
-  const states = require("us-state-converter");
-
-  const convertCoorToCity = (resolve) => {
+  {
+    /* Converts a city to its coordinates and returns a
+    api url to fetch the weather */
+  }
+  const convertCityToCoor = (resolve: {
+    (value: unknown): void;
+    (arg0: string): void;
+  }) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
@@ -30,11 +36,14 @@ export default function HomePage() {
     });
   };
 
-  const fetchWeather = async (e) => {
+  {
+    /* Fetches the weather using an api url */
+  }
+  const fetchWeather = async (e: { preventDefault: () => void }) => {
     let myPromise = new Promise(async function (resolve) {
       e.preventDefault();
       setLoading(true);
-      convertCoorToCity(resolve);
+      convertCityToCoor(resolve);
     });
     const url2: string = await myPromise;
     axios.get(url2).then((response) => {
@@ -43,10 +52,13 @@ export default function HomePage() {
     setLoading(false);
   };
 
-  const fetchAlerts = (e) => {
+  {
+    /* Fetches alerts for a state using an api url */
+  }
+  const fetchAlerts = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
-    const stateSymbol = states.abbr(state);
+    const stateSymbol = getAbbrOfState(state);
     const url3 = `https://api.weather.gov/alerts/active?area=${stateSymbol}`;
     axios.get(url3).then((response) => {
       setAlerts(response.data);
@@ -130,11 +142,11 @@ export default function HomePage() {
         </h1>
         <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
           This is a weather tracking website to get both current and future
-          weather information that you may need using openweather's api
+          weather information that you may need using openweather&apos;s api
           catalogue.
         </p>
         <p className="flex h-10 items-center justify-center p-3 text-xl">
-          Use the search bar below to search for a city's weather.
+          Use the search bar below to search for a city&apos;s weather.
         </p>
       </div>
 
