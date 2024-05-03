@@ -8,7 +8,7 @@ import Weather from "../components/Weather";
 import Link from "next/link";
 import Spinner from "@/app/components/Spinner";
 import Alerts from "@/app/components/Alerts";
-import getAbbrOfState from "@/app/components/StatesList";
+import states from "us-state-converter";
 
 export default function HomePage() {
   const [city, setCity] = useState("Atlanta");
@@ -23,10 +23,7 @@ export default function HomePage() {
     /* Converts a city to its coordinates and returns a
     api url to fetch the weather */
   }
-  const convertCityToCoor = (resolve: {
-    (value: unknown): void;
-    (arg0: string): void;
-  }) => {
+  const convertCityToCoor = (resolve: string) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
@@ -39,7 +36,8 @@ export default function HomePage() {
   {
     /* Fetches the weather using an api url */
   }
-  const fetchWeather = async (e: { preventDefault: () => void }) => {
+  const fetchWeather = async (e) => {
+    setCity(document?.getElementById("cityInput")?.value);
     let myPromise = new Promise(async function (resolve) {
       e.preventDefault();
       setLoading(true);
@@ -55,10 +53,12 @@ export default function HomePage() {
   {
     /* Fetches alerts for a state using an api url */
   }
-  const fetchAlerts = (e: { preventDefault: () => void }) => {
+  const fetchAlerts = (e) => {
+    setState(document?.getElementById("stateInput")?.value);
     e.preventDefault();
     setLoading(true);
-    const stateSymbol = getAbbrOfState(state);
+    const stateSymbol = states(state).usps;
+    console.log(stateSymbol);
     const url3 = `https://api.weather.gov/alerts/active?area=${stateSymbol}`;
     axios.get(url3).then((response) => {
       setAlerts(response.data);
@@ -71,26 +71,21 @@ export default function HomePage() {
       return <Spinner />;
     } else {
       return (
-        <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 z-10 ">
-          {/* Search Weather */}
+        <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
           <form
             onSubmit={fetchWeather}
             className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
           >
-            <div>
-              <input
-                id="cityInput"
-                type="text"
-                placeholder="Search city"
-                className="bg-transparent border-none text-white focus:outline-none text-2xl"
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
+            <input
+              id="cityInput"
+              type="text"
+              placeholder="Search city"
+              className="bg-transparent border-none text-white focus:outline-none text-2xl"
+            />
             <button>
               <BsSearch size={20} />
             </button>
           </form>
-
           {/* Weather */}
           <Weather data={weather} />
         </div>
@@ -116,7 +111,6 @@ export default function HomePage() {
                   type="text"
                   placeholder="Search state"
                   className="bg-transparent border-none text-white focus:outline-none text-2xl"
-                  onChange={(e) => setState(e.target.value)}
                 />
               </div>
               <button>

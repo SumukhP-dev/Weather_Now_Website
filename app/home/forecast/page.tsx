@@ -18,10 +18,7 @@ export default function ForecastPage() {
     /* Converts a city to its coordinates and returns a api url 
     to fetch the weather data from the nearest station */
   }
-  const convertCityToCoor = (resolve: {
-    (value: unknown): void;
-    (arg0: string): void;
-  }) => {
+  const convertCityToCoor = (resolve: string) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     console.log(url);
     axios.get(url).then((response) => {
@@ -35,10 +32,7 @@ export default function ForecastPage() {
   {
     /* Fetches an api url for the hourly forecast of the weather */
   }
-  const findForecastURL = async (resolve: {
-    (value: unknown): void;
-    (arg0: any): void;
-  }) => {
+  const findForecastURL = async (resolve: string) => {
     let myPromise = new Promise(async function (resolve) {
       convertCityToCoor(resolve);
     });
