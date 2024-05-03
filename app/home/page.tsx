@@ -105,14 +105,12 @@ export default function HomePage() {
               onSubmit={fetchAlerts}
               className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
             >
-              <div>
-                <input
-                  id="stateInput"
-                  type="text"
-                  placeholder="Search state"
-                  className="bg-transparent border-none text-white focus:outline-none text-2xl"
-                />
-              </div>
+              <input
+                id="stateInput"
+                type="text"
+                placeholder="Search state"
+                className="bg-transparent border-none text-white focus:outline-none text-2xl"
+              />
               <button>
                 <BsSearch size={20} />
               </button>
