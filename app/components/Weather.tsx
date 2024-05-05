@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 const Weather = ({ data }) => {
@@ -7,7 +7,7 @@ const Weather = ({ data }) => {
       return (
         <>
           <div className="relative flex flex-row w-full p-4 text-white z-10 mb-20 justify-center ">
-            {/* Top */}
+            {/* Left */}
             <div className="relative flex justify-start pt-12 mr-20 ">
               <div className="flex flex-col items-center">
                 <Image
@@ -21,7 +21,7 @@ const Weather = ({ data }) => {
               <p className="text-9xl">{data.main.temp.toFixed(0)}&#176;F</p>
             </div>
 
-            {/* Bottom */}
+            {/* Right */}
             <div className=" p-10 rounded-md">
               <p className="text-2xl text-center pb-6">
                 Weather in {data.name}
