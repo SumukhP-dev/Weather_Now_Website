@@ -1,5 +1,12 @@
+import { posix } from "path";
 import { create } from "zustand";
 
-export const useStore = create((set) => ({
-  sliderPosition: 0,
+export interface Store {
+  position: number[];
+  setPosition: (x: number[]) => void;
+}
+
+export const useStore = create<Store>((set) => ({
+  position: [1],
+  setPosition: (x: number[]) => set(() => ({ position: x })),
 }));

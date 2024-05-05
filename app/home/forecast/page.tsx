@@ -20,7 +20,6 @@ export default function ForecastPage() {
   }
   const convertCityToCoor = (resolve: string) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
-    console.log(url);
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
@@ -37,9 +36,7 @@ export default function ForecastPage() {
       convertCityToCoor(resolve);
     });
     const url2: string = await myPromise;
-    console.log(url2);
     axios.get(url2).then((response) => {
-      console.log(response);
       const url3 = response.data.properties.forecastHourly;
       resolve(url3);
     });
@@ -55,12 +52,9 @@ export default function ForecastPage() {
       findForecastURL(resolve);
     });
     const url3: string = await myPromise2;
-    console.log(url3);
     axios.get(url3).then((response) => {
-      console.log(response);
       setCurrentDayForecast(response.data.properties.periods);
     });
-    console.log(currentDayForecast);
     setLoading(false);
   };
 
