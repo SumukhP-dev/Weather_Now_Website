@@ -1,7 +1,7 @@
 "use client";
 
-import CurrentDayForecast from "@/app/components/CurrentDayForecast";
-import NavBar from "@/app/components/NavBar";
+import CurrentDayForecast from "@/app/ui/forecast/CurrentDayForecast";
+import NavBar from "@/app/ui/NavBar";
 import axios from "axios";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
@@ -18,12 +18,15 @@ export default function ForecastPage() {
     /* Converts a city to its coordinates and returns a api url 
     to fetch the weather data from the nearest station */
   }
-  const convertCityToCoor = (resolve: string) => {
+  const convertCityToCoor = (resolve: {
+    (value: string): void;
+    (arg0: string): void;
+  }) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
-      const url2: string = `https://api.weather.gov/points/${lat},${lon}`;
+      const url2 = `https://api.weather.gov/points/${lat},${lon}`;
       resolve(url2);
     });
   };
@@ -31,11 +34,14 @@ export default function ForecastPage() {
   {
     /* Fetches an api url for the hourly forecast of the weather */
   }
-  const findForecastURL = async (resolve: string) => {
-    let myPromise = new Promise(async function (resolve) {
+  const findForecastURL = async (resolve: {
+    (value: string): void;
+    (arg0: any): void;
+  }) => {
+    let myPromise = new Promise<string>(async function (resolve) {
       convertCityToCoor(resolve);
     });
-    const url2: string = await myPromise;
+    const url2 = await myPromise;
     axios.get(url2).then((response) => {
       const url3 = response.data.properties.forecastHourly;
       resolve(url3);
@@ -46,12 +52,12 @@ export default function ForecastPage() {
     /* Fetches the hourly forecast data */
   }
   const fetchCurrentDayForecast = async (e: { preventDefault: () => void }) => {
-    let myPromise2 = new Promise(async function (resolve) {
+    let myPromise2 = new Promise<string>(async function (resolve) {
       e.preventDefault();
       setLoading(true);
       findForecastURL(resolve);
     });
-    const url3: string = await myPromise2;
+    const url3 = await myPromise2;
     axios.get(url3).then((response) => {
       setCurrentDayForecast(response.data.properties.periods);
     });

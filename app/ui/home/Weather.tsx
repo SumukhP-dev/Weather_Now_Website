@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-const Weather = ({ data }) => {
+const Weather = ({ data }: any) => {
   const renderWeatherWidget = () => {
     if (data != null && JSON.stringify(data) != JSON.stringify({})) {
       return (
