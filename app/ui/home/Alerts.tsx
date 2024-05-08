@@ -1,16 +1,16 @@
 import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
-const Alerts = ({ data }) => {
+const Alerts = ({ data }: any) => {
   const renderWeatherAlerts = () => {
     if (data != null && JSON.stringify(data) != JSON.stringify({})) {
-      const alertInfo = data.features.map((element) => {
+      const alertInfo = data.features.map((element: any) => {
         return <p key={element}>{element.properties.event}</p>;
       });
       return (
         <>
           <div className="relative flex w-full text-gray-400">
-            {data.features.map((element) => {
+            {data.features.map((element: any) => {
               return (
                 <>
                   {/* Alert card */}

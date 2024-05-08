@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider";
 import Image from "next/image";
-import { useStore } from "../lib/store";
+import { useStore } from "../../lib/store";
 
-const CurrentDayForecast = ({ data }) => {
+const CurrentDayForecast = ({ data }: any) => {
   const time = useStore.getState().position;
   const changeMilitaryToStandard = (currentTime: string) => {
     const militaryTime = currentTime.substring(11, 13);

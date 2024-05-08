@@ -1,13 +1,13 @@
 "use client";
 
-import NavBar from "@/app/components/NavBar";
+import NavBar from "@/app/ui/NavBar";
 import { use, useEffect, useState } from "react";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
-import Weather from "../components/Weather";
+import Weather from "../ui/home/Weather";
 import Link from "next/link";
-import Spinner from "@/app/components/Spinner";
-import Alerts from "@/app/components/Alerts";
+import Spinner from "@/app/ui/Spinner";
+import Alerts from "@/app/ui/home/Alerts";
 import states from "us-state-converter";
 
 export default function HomePage() {
@@ -23,7 +23,10 @@ export default function HomePage() {
     /* Converts a city to its coordinates and returns a
     api url to fetch the weather */
   }
-  const convertCityToCoor = (resolve: string) => {
+  const convertCityToCoor = (resolve: {
+    (value: string): void;
+    (arg0: string): void;
+  }) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
@@ -36,14 +39,14 @@ export default function HomePage() {
   {
     /* Fetches the weather using an api url */
   }
-  const fetchWeather = async (e) => {
-    setCity(document?.getElementById("cityInput")?.value);
-    let myPromise = new Promise(async function (resolve) {
+  const fetchWeather = async (e: { preventDefault: () => void }) => {
+    setCity((document?.getElementById("cityInput") as HTMLInputElement).value);
+    let myPromise = new Promise<string>(async function (resolve) {
       e.preventDefault();
       setLoading(true);
       convertCityToCoor(resolve);
     });
-    const url2: string = await myPromise;
+    const url2 = await myPromise;
     axios.get(url2).then((response) => {
       setWeather(response.data);
     });
@@ -53,8 +56,10 @@ export default function HomePage() {
   {
     /* Fetches alerts for a state using an api url */
   }
-  const fetchAlerts = (e) => {
-    setState(document?.getElementById("stateInput")?.value);
+  const fetchAlerts = (e: { preventDefault: () => void }) => {
+    setState(
+      (document?.getElementById("stateInput") as HTMLInputElement).value
+    );
     e.preventDefault();
     setLoading(true);
     const stateSymbol = states(state).usps;
