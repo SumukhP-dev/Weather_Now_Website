@@ -26,6 +26,9 @@ const NavBar = () => {
         <div className="p-5">
           <Link href="/home/heatmap">Heatmap</Link>
         </div>
+        <div className="p-5">
+          <Link href="/home/login">Login</Link>
+        </div>
       </div>
     </Nav>
   );
