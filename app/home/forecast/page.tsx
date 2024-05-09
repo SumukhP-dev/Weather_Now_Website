@@ -67,9 +67,8 @@ export default function ForecastPage() {
   return (
     <>
       <NavBar />
-
       {/* Current Day Forecast */}
-      <div className="p-5">
+      <div className="">
         <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
           Current Day Forecast
         </h1>
@@ -78,7 +77,6 @@ export default function ForecastPage() {
           the weather later in the day.
         </p>
       </div>
-
       <div className="m-auto pt-4 text-white mb-20">
         {/* Search Current Day Forecast */}
         <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">

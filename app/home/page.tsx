@@ -133,16 +133,16 @@ export default function HomePage() {
       <NavBar />
 
       {/* Welcome Section */}
-      <div className="p-5">
+      <div className="">
         <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
           Welcome to Weather Now
         </h1>
-        <p className="flex h-10 mt-5 items-center justify-center p-3 text-xl">
+        <p className="flex h-10 mt-10 items-center justify-center text-xl text-center	">
           This is a weather tracking website to get both current and future
           weather information that you may need using openweather&apos;s api
           catalogue.
         </p>
-        <p className="flex h-10 items-center justify-center p-3 text-xl">
+        <p className="flex mb-5 h-10 items-center justify-center text-xl">
           Use the search bar below to search for a city&apos;s weather.
         </p>
       </div>

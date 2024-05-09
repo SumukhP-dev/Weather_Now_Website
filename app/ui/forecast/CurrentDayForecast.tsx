@@ -71,7 +71,7 @@ const CurrentDayForecast = ({ data }: any) => {
     }
   };
 
-  return <>{renderWeatherForecastWidget()};</>;
+  return <>{renderWeatherForecastWidget()}</>;
 };
 
 export default CurrentDayForecast;
