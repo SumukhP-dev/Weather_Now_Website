@@ -15,19 +15,19 @@ const NavBar = () => {
       </div>
       <div className="flex mt-2">
         <div className="p-3">
-          <Link href="/home">Home</Link>
+          <Link href="/">Home</Link>
         </div>
         <div className="p-3">
-          <Link href="/home/contact">Contact Us</Link>
+          <Link href="/contact">Contact Us</Link>
         </div>
         <div className="p-3">
-          <Link href="/home/forecast">Forecast</Link>
+          <Link href="/forecast">Forecast</Link>
         </div>
         <div className="p-3">
-          <Link href="/home/heatmap">Heatmap</Link>
+          <Link href="/heatmap">Heatmap</Link>
         </div>
         <div className="p-3">
-          <Link href="/home/login">Login</Link>
+          <Link href="/login">Login</Link>
         </div>
       </div>
     </Nav>

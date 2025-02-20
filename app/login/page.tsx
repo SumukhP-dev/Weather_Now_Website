@@ -1,5 +1,5 @@
 import NavBar from "@/app/ui/NavBar";
-import LoginForm from "../../ui/login/LoginForm";
+import LoginForm from "../ui/login/LoginForm";
 
 export default function LoginPage() {
   return (

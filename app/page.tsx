@@ -4,7 +4,7 @@ import NavBar from "@/app/ui/NavBar";
 import { use, useEffect, useState } from "react";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
-import Weather from "../ui/home/Weather";
+import Weather from "./ui/home/Weather";
 import Link from "next/link";
 import Spinner from "@/app/ui/Spinner";
 import Alerts from "@/app/ui/home/Alerts";
