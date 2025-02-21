@@ -47,10 +47,13 @@ export default function HomePage() {
       convertCityToCoor(resolve);
     });
     const url2 = await myPromise;
-    axios.get(url2).then((response) => {
-      setWeather(response.data);
+
+    let myPromise2 = new Promise<string>(async function (resolve) {
+      axios.get(url2).then((response) => {
+        setWeather(response.data);
+      });
     });
-    setLoading(false);
+    await myPromise2;
   };
 
   {
@@ -68,8 +71,12 @@ export default function HomePage() {
     axios.get(url3).then((response) => {
       setAlerts(response.data);
     });
-    setLoading(false);
   };
+
+  useEffect(() => {
+    console.log(JSON.stringify(weather));
+    setLoading(false);
+  }, [weather, alerts]);
 
   const SearchWeather = () => {
     if (loading) {

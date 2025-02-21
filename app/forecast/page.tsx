@@ -24,8 +24,11 @@ export default function ForecastPage() {
   }) => {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
+      console.log("1: " + response.data[0].lat);
+      console.log("2: " + response.data[0].lon);
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
+      setTimeout(() => {}, 1000);
       const url2 = `https://api.weather.gov/points/${lat},${lon}`;
       resolve(url2);
     });
@@ -60,6 +63,7 @@ export default function ForecastPage() {
     const url3 = await myPromise2;
     axios.get(url3).then((response) => {
       setCurrentDayForecast(response.data.properties.periods);
+      console.log(JSON.stringify(response.data.properties.periods));
     });
     setLoading(false);
   };

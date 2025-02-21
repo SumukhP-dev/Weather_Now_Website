@@ -9,7 +9,7 @@ const Nav = styled.nav``;
 
 const NavBar = () => {
   return (
-    <Nav className="bg-white text-black flex h-15 font-bold">
+    <Nav className="bg-white text-black flex h-15 font-bold mb-10">
       <div className="w-40 h-15 object-fit m-2">
         <Image src={weather_now_logo} alt="weather logo"></Image>
       </div>

@@ -9,12 +9,12 @@ const Alerts = ({ data }: any) => {
       });
       return (
         <>
-          <div className="relative flex w-full text-gray-400">
+          <div className="relative flex-wrap text-gray-400 m-10 grid grid-cols-3 grid-rows-3">
             {data.features.map((element: any) => {
               return (
                 <>
                   {/* Alert card */}
-                  <Card className="bg-slate-500 text-white p-10 m-5">
+                  <Card className="bg-slate-500 text-white p-10 m-3">
                     <CardHeader>
                       <p key={element}>{element.properties.event}</p>
                     </CardHeader>
