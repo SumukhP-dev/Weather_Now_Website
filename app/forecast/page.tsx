@@ -28,8 +28,7 @@ export default function ForecastPage() {
       console.log("2: " + response.data[0].lon);
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
-      setTimeout(() => {}, 1000);
-      const url2 = `https://api.weather.gov/points/${lat},${lon}`;
+      const url2 = `https://api.weather.gov/points/${response.data[0].lat},${response.data[0].lon}`;
       resolve(url2);
     });
   };

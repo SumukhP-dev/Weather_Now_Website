@@ -31,7 +31,8 @@ export default function HomePage() {
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
-      const url2: string = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+      const url2: string = `https://api.openweathermap.org/data/2.5/weather?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+      console.log("url2 " + url2);
       resolve(url2);
     });
   };
@@ -53,6 +54,7 @@ export default function HomePage() {
         setWeather(response.data);
       });
     });
+    setLoading(false);
     await myPromise2;
   };
 
@@ -71,12 +73,8 @@ export default function HomePage() {
     axios.get(url3).then((response) => {
       setAlerts(response.data);
     });
-  };
-
-  useEffect(() => {
-    console.log(JSON.stringify(weather));
     setLoading(false);
-  }, [weather, alerts]);
+  };
 
   const SearchWeather = () => {
     if (loading) {

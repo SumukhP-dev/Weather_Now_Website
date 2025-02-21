@@ -9,7 +9,7 @@ const Alerts = ({ data }: any) => {
       });
       return (
         <>
-          <div className="relative flex-wrap text-gray-400 m-10 grid grid-cols-3 grid-rows-3">
+          <div className="relative flex-wrap text-gray-400 m-10 grid grid-cols-4 rounded-full">
             {data.features.map((element: any) => {
               return (
                 <>
