@@ -17,6 +17,7 @@
     "@vercel/functions": "^2.0.0",
     "@vercel/postgres": "^0.10.0",
     "axios": "^1.6.8",
+    "babel-plugin-styled-components": "^2.1.4",
     "bcrypt": "^5.1.1",
     "jsdom-global": "^3.0.2",
     "leaflet": "^1.9.4",

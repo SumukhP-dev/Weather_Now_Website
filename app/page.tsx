@@ -12,7 +12,7 @@ import { Geo } from "@vercel/functions";
 import Map from "./ui/home/Map";
 import dynamic from "next/dynamic";
 
-export default function HomePage(props: Geo) {
+export default function HomePage() {
   const [city, setCity] = useState("Atlanta");
   const [state, setState] = useState("Georgia");
   const [weather, setWeather] = useState({});
@@ -20,7 +20,7 @@ export default function HomePage(props: Geo) {
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
-  const Map = dynamic(() => import("../app/ui/home/Map"), { ssr: false });
+  // const Map = dynamic(() => import("../app/ui/home/Map"), { ssr: false });
 
   {
     /* Converts a city to its coordinates and returns a
@@ -145,8 +145,6 @@ export default function HomePage(props: Geo) {
         <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
           Welcome to Weather Now
         </h1>
-
-        <Map posix={[4.79029, -75.69003]} />
 
         <p className="flex h-10 mt-10 items-center justify-center text-xl text-center	">
           This is a weather tracking website to get both current and future
