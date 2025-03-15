@@ -22,7 +22,7 @@ export default function ForecastPage() {
     (value: string): void;
     (arg0: string): void;
   }) => {
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       console.log("1: " + response.data[0].lat);
       console.log("2: " + response.data[0].lon);
