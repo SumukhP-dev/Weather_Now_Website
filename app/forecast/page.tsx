@@ -92,7 +92,7 @@ export default function ForecastPage() {
                 id="cityInput"
                 type="text"
                 placeholder="Search city"
-                className="bg-transparent border-none text-white focus:outline-none text-2xl"
+                className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
                 onChange={(e) => setCity(e.target.value)}
               />
             </div>
