@@ -1,16 +1,18 @@
 "use client";
 
 import NavBar from "@/app/ui/NavBar";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
 import Weather from "./ui/home/Weather";
-import Link from "next/link";
 import Spinner from "@/app/ui/Spinner";
 import Alerts from "@/app/ui/home/Alerts";
 import states from "us-state-converter";
+import { Geo } from "@vercel/functions";
+import Map from "./ui/home/Map";
+import dynamic from "next/dynamic";
 
-export default function HomePage() {
+export default function HomePage(props: Geo) {
   const [city, setCity] = useState("Atlanta");
   const [state, setState] = useState("Georgia");
   const [weather, setWeather] = useState({});
@@ -18,6 +20,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
+  const Map = dynamic(() => import("../app/ui/home/Map"), { ssr: false });
 
   {
     /* Converts a city to its coordinates and returns a
@@ -27,7 +30,7 @@ export default function HomePage() {
     (value: string): void;
     (arg0: string): void;
   }) => {
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
@@ -142,6 +145,9 @@ export default function HomePage() {
         <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
           Welcome to Weather Now
         </h1>
+
+        <Map posix={[4.79029, -75.69003]} />
+
         <p className="flex h-10 mt-10 items-center justify-center text-xl text-center	">
           This is a weather tracking website to get both current and future
           weather information that you may need using openweather&apos;s api
