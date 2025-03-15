@@ -93,7 +93,7 @@ export default function HomePage() {
               id="cityInput"
               type="text"
               placeholder="Search city"
-              className="bg-transparent border-none text-white focus:outline-none text-2xl"
+              className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
             />
             <button>
               <BsSearch size={20} />
@@ -122,7 +122,7 @@ export default function HomePage() {
                 id="stateInput"
                 type="text"
                 placeholder="Search state"
-                className="bg-transparent border-none text-white focus:outline-none text-2xl"
+                className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
               />
               <button>
                 <BsSearch size={20} />
