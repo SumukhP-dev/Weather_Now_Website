@@ -7,7 +7,6 @@ import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 export default function ForecastPage() {
-  const [city, setCity] = useState("Atlanta");
   const [currentDayForecast, setCurrentDayForecast] = useState({});
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(0);
@@ -22,6 +21,8 @@ export default function ForecastPage() {
     (value: string): void;
     (arg0: string): void;
   }) => {
+    const city = (document?.getElementById("cityInput") as HTMLInputElement)
+      .value;
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       console.log("1: " + response.data[0].lat);
@@ -93,7 +94,6 @@ export default function ForecastPage() {
                 type="text"
                 placeholder="Search city"
                 className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
-                onChange={(e) => setCity(e.target.value)}
               />
             </div>
             <button>

@@ -13,8 +13,6 @@ import Map from "./ui/home/Map";
 import dynamic from "next/dynamic";
 
 export default function HomePage() {
-  const [city, setCity] = useState("Atlanta");
-  const [state, setState] = useState("Georgia");
   const [weather, setWeather] = useState({});
   const [alerts, setAlerts] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,12 +28,13 @@ export default function HomePage() {
     (value: string): void;
     (arg0: string): void;
   }) => {
+    const city = (document?.getElementById("cityInput") as HTMLInputElement)
+      .value;
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
       const url2: string = `https://api.openweathermap.org/data/2.5/weather?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
-      console.log("url2 " + url2);
       resolve(url2);
     });
   };
@@ -44,7 +43,6 @@ export default function HomePage() {
     /* Fetches the weather using an api url */
   }
   const fetchWeather = async (e: { preventDefault: () => void }) => {
-    setCity((document?.getElementById("cityInput") as HTMLInputElement).value);
     let myPromise = new Promise<string>(async function (resolve) {
       e.preventDefault();
       setLoading(true);
@@ -65,9 +63,8 @@ export default function HomePage() {
     /* Fetches alerts for a state using an api url */
   }
   const fetchAlerts = (e: { preventDefault: () => void }) => {
-    setState(
-      (document?.getElementById("stateInput") as HTMLInputElement).value
-    );
+    const state = (document?.getElementById("stateInput") as HTMLInputElement)
+      .value;
     e.preventDefault();
     setLoading(true);
     const stateSymbol = states(state).usps;
@@ -81,24 +78,14 @@ export default function HomePage() {
 
   const SearchWeather = () => {
     if (loading) {
-      return <Spinner />;
+      return (
+        <>
+          <Spinner />
+        </>
+      );
     } else {
       return (
         <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
-          <form
-            onSubmit={fetchWeather}
-            className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
-          >
-            <input
-              id="cityInput"
-              type="text"
-              placeholder="Search city"
-              className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
-            />
-            <button>
-              <BsSearch size={20} />
-            </button>
-          </form>
           {/* Weather */}
           <Weather data={weather} />
         </div>
@@ -112,23 +99,6 @@ export default function HomePage() {
     } else {
       return (
         <div className="m-auto pt-4 text-white mb-20">
-          {/* Search Alerts */}
-          <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
-            <form
-              onSubmit={fetchAlerts}
-              className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
-            >
-              <input
-                id="stateInput"
-                type="text"
-                placeholder="Search state"
-                className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
-              />
-              <button>
-                <BsSearch size={20} />
-              </button>
-            </form>
-          </div>
           {/* Alerts */}
           <Alerts data={alerts} />
         </div>
@@ -156,6 +126,24 @@ export default function HomePage() {
         </p>
       </div>
 
+      {/* Weather Section */}
+      <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
+        <form
+          onSubmit={fetchWeather}
+          className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
+        >
+          <input
+            id="cityInput"
+            type="text"
+            placeholder="Search city"
+            className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
+          />
+          <button>
+            <BsSearch size={20} />
+          </button>
+        </form>
+      </div>
+
       <SearchWeather />
 
       {/* Weather Alerts Section */}
@@ -167,6 +155,24 @@ export default function HomePage() {
           Use the search bar below to search for weather alerts within the
           state.
         </p>
+      </div>
+
+      {/* Search Alerts */}
+      <div className="justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10">
+        <form
+          onSubmit={fetchAlerts}
+          className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
+        >
+          <input
+            id="stateInput"
+            type="text"
+            placeholder="Search state"
+            className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
+          />
+          <button>
+            <BsSearch size={20} />
+          </button>
+        </form>
       </div>
 
       <SearchAlerts />
