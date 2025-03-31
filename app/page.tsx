@@ -15,7 +15,8 @@ import dynamic from "next/dynamic";
 export default function HomePage() {
   const [weather, setWeather] = useState({});
   const [alerts, setAlerts] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [loadingAlerts, setLoadingAlerts] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
   // const Map = dynamic(() => import("../app/ui/home/Map"), { ssr: false });
@@ -45,7 +46,7 @@ export default function HomePage() {
   const fetchWeather = async (e: { preventDefault: () => void }) => {
     let myPromise = new Promise<string>(async function (resolve) {
       e.preventDefault();
-      setLoading(true);
+      setLoadingWeather(true);
       convertCityToCoor(resolve);
     });
     const url2 = await myPromise;
@@ -55,7 +56,7 @@ export default function HomePage() {
         setWeather(response.data);
       });
     });
-    setLoading(false);
+    setLoadingWeather(false);
     await myPromise2;
   };
 
@@ -66,18 +67,18 @@ export default function HomePage() {
     const state = (document?.getElementById("stateInput") as HTMLInputElement)
       .value;
     e.preventDefault();
-    setLoading(true);
+    setLoadingAlerts(true);
     const stateSymbol = states(state).usps;
     console.log(stateSymbol);
     const url3 = `https://api.weather.gov/alerts/active?area=${stateSymbol}`;
     axios.get(url3).then((response) => {
       setAlerts(response.data);
     });
-    setLoading(false);
+    setLoadingAlerts(false);
   };
 
   const SearchWeather = () => {
-    if (loading) {
+    if (loadingWeather) {
       return (
         <>
           <Spinner />
@@ -94,7 +95,8 @@ export default function HomePage() {
   };
 
   const SearchAlerts = () => {
-    if (loading) {
+    console.log(alerts);
+    if (loadingAlerts) {
       return <Spinner />;
     } else {
       return (

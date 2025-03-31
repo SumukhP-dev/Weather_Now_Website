@@ -1,67 +1,56 @@
 import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { useState } from "react";
-import Carousel from "react-bootstrap/Carousel";
-import ExampleCarouselImage from "components/ExampleCarouselImage";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-function ControlledCarousel(element: any) {
-  const [index, setIndex] = useState(0);
-
-  const handleSelect = (selectedIndex: React.SetStateAction<number>) => {
-    setIndex(selectedIndex);
-  };
-
+const ResponsiveCarousel = ({ items }: any) => {
+  const responsive: any = items;
+  console.log(responsive);
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <Card className="bg-slate-500 text-white p-10 m-3">
-          <CardHeader>
-            <p key={element}>{element.properties.event}</p>
-          </CardHeader>
-          <CardBody>
-            <p key={element}>Severity: {element.properties.severity}</p>
-            <p key={element}>Area Affected: {element.properties.areaDesc}</p>
-            <p key={element}>Description: {element.properties.description}</p>
-          </CardBody>
-        </Card>
-      </Carousel.Item>
-      <Carousel.Item>
-        <ExampleCarouselImage text="Second slide" />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <ExampleCarouselImage text="Third slide" />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <div
+      className="self-stretch
+"
+    >
+      <Carousel
+        centerMode
+        centerSlidePercentage={33}
+        showArrows={true}
+        showIndicators={true}
+        infiniteLoop={true}
+        dynamicHeight={false}
+      >
+        {responsive.features.map((item: any) => (
+          <>
+            {/* Alert card */}
+            <Card className="bg-slate-500 text-white p-5 m-3 min-h-full">
+              <CardHeader>
+                <p key={item}>{item.properties.event}</p>
+              </CardHeader>
+              <CardBody>
+                <p key={item}>Severity: {item.properties.severity}</p>
+                <br />
+                <p key={item}>Area Affected: {item.properties.areaDesc}</p>
+                <br />
+                <p key={item}>Description: {item.properties.description}</p>
+              </CardBody>
+            </Card>
+          </>
+        ))}
+      </Carousel>
+    </div>
   );
-}
+};
 
 const Alerts = ({ data }: any) => {
   const renderWeatherAlerts = () => {
+    console.log(typeof data);
     if (data != null && JSON.stringify(data) != JSON.stringify({})) {
-      const alertInfo = data.features.map((element: any) => {
-        return <p key={element}>{element.properties.event}</p>;
-      });
       return (
         <>
-          <div className="relative flex-wrap text-gray-400 m-10 grid grid-cols-4 rounded-full">
-            {data.features.map((individualElement: any) => {
-              return (
-                <>
-                  {/* Alert card */}
-                  <ControlledCarousel element={individualElement} />
-                </>
-              );
-            })}
+          <div className="relative text-gray-400 m-10">
+            {/* Alert carousel */}
+            <ResponsiveCarousel items={data} />
           </div>
         </>
       );
