@@ -7,7 +7,13 @@ const CurrentDayForecast = ({ data }: any) => {
   const time = useStore.getState().position;
   const changeMilitaryToStandard = (currentTime: string) => {
     const militaryTime = currentTime.substring(11, 13);
-    const convertedTime = militaryTime as unknown as number;
+    let convertedTime = militaryTime as unknown as number;
+
+    console.log(convertedTime);
+    if (convertedTime == 0) {
+      convertedTime = 12;
+    }
+
     if (convertedTime > 12) {
       return `${convertedTime - 12}:00 PM`;
     } else {
