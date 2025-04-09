@@ -42,6 +42,7 @@
     "states-us": "^1.0.4",
     "styled-components": "^6.1.15",
     "us-state-converter": "^1.0.6",
+    "use-async-effect": "^2.2.7",
     "web-vitals": "^3.5.2",
     "zod": "^3.24.2",
     "zustand": "^4.5.2"
@@ -54,6 +55,7 @@
     "@types/react-dom": "19.0.4",
     "eslint": "^8",
     "eslint-config-next": "^15.2.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "postcss": "^8",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.1",

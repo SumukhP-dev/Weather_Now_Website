@@ -11,12 +11,21 @@ COPY package*.json ./
 RUN npm install  
 
 # Backend
-FROM python:3.10.5-slim-buster
+FROM python:3.13.2
 
 WORKDIR /app_demo
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# Set environment variables 
+# Prevents Python from writing pyc files to disk
+ENV PYTHONDONTWRITEBYTECODE=1
+#Prevents Python from buffering stdout and stderr
+ENV PYTHONUNBUFFERED=1 
+
+# Copy the Django project  and install dependencies
+COPY ./core-api/requirements.txt ./core-api/requirements.txt
+
+# run this command to install all dependencies 
+RUN python3 -m pip install -r ./core-api/requirements.txt
 
 # Copy the app source code to the container  
 COPY . .  

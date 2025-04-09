@@ -1,9 +1,15 @@
 import * as React from "react";
 import { Range } from "react-range";
-import { useStore } from "../../lib/store";
+import { useStore } from "../../lib/store.tsx";
 
 export default class Slider extends React.Component {
   state = { values: [24] };
+
+  handleChange = (values: number[]) => {
+    this.setState({ values });
+    useStore.setState({ position: values });
+  };
+
   render() {
     return (
       <>
@@ -13,10 +19,7 @@ export default class Slider extends React.Component {
             min={1}
             max={24}
             values={this.state.values}
-            onChange={(values) => {
-              useStore.setState({ position: values });
-              this.setState({ values });
-            }}
+            onChange={this.handleChange}
             renderTrack={({ props, children }) => (
               <div
                 {...props}
