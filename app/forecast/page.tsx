@@ -3,15 +3,15 @@
 import CurrentDayForecast from "@/app/ui/forecast/CurrentDayForecast";
 import NavBar from "@/app/ui/NavBar";
 import axios from "axios";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { useStore } from "../lib/store.tsx";
 
 export default function ForecastPage() {
   const [currentDayForecast, setCurrentDayForecast] = useState({});
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
-  const [wfo, setWFO] = useState(0);
 
   {
     /* Converts a city to its coordinates and returns a api url 
@@ -25,8 +25,8 @@ export default function ForecastPage() {
       .value;
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
     axios.get(url).then((response) => {
-      console.log("1: " + response.data[0].lat);
-      console.log("2: " + response.data[0].lon);
+      // console.log("lat: " + response.data[0].lat);
+      // console.log("lon: " + response.data[0].lon);
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
       const url2 = `https://api.weather.gov/points/${response.data[0].lat},${response.data[0].lon}`;
@@ -63,10 +63,15 @@ export default function ForecastPage() {
     const url3 = await myPromise2;
     axios.get(url3).then((response) => {
       setCurrentDayForecast(response.data.properties.periods);
-      console.log(JSON.stringify(response.data.properties.periods));
+      // console.log(JSON.stringify(response.data.properties.periods));
     });
     setLoading(false);
   };
+
+  useStore.subscribe((state) => {
+    // console.log("state", state, "oldState", oldState);
+    fetchCurrentDayForecast({ preventDefault: () => {} });
+  });
 
   return (
     <>
