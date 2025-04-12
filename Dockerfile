@@ -1,40 +1,26 @@
-# Use the official Node.js image as the base  
-FROM node:14  
+# Use the Alpine version of the Node.js image
+FROM node:22.14.0
 
-# Set the working directory inside the container  
-WORKDIR /app  
+# Set the working directory
+WORKDIR /app/frontend/
 
-# Copy package.json and package-lock.json to the container  
-COPY package*.json ./  
+# First copy package.json and package-lock.json
+COPY package*.json .
 
-# Install dependencies  
-RUN npm install  
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
-# Backend
-FROM python:3.13.2
+# Copy all source code to the working directory
+COPY . .
 
-WORKDIR /app_demo
+# Build the application
+RUN npm run build
 
-# Set environment variables 
-# Prevents Python from writing pyc files to disk
-ENV PYTHONDONTWRITEBYTECODE=1
-#Prevents Python from buffering stdout and stderr
-ENV PYTHONUNBUFFERED=1 
+# Next.js listens on port 3000 by default
+EXPOSE 3000
 
-# Copy the Django project  and install dependencies
-COPY ./core-api/requirements.txt ./core-api/requirements.txt
+# Uncomment the line below to run in development mode with live reloading
+CMD ["npm", "run", "dev"]
 
-# run this command to install all dependencies 
-RUN python3 -m pip install -r ./core-api/requirements.txt
-
-# Copy the app source code to the container  
-COPY . .  
-
-# Build the Next.js app  
-RUN npm run build  
-
-# Expose the port the app will run on  
-EXPOSE 3000  
-
-# Start the app  
-CMD ["npm", "start"]  
+# Uncomment the line below to run in production mode
+# CMD ["npm", "start"]

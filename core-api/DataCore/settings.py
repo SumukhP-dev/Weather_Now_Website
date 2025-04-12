@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
 
-    #third apps
-    "rest_framework",
-
     # installed apps
     "data"
+    "rest_framework",
+    "djoser",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "auth/password/reset-password-confirmation/?uid={uid}&token={token}",
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": False,
+    "SERIALIZERS": {},
+    "LOGIN_FIELD": "email",
+}

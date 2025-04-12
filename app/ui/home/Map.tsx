@@ -18,33 +18,33 @@ const defaults = {
   zoom: 19,
 };
 const Map = (Map: MapProps) => {
-  const { zoom = defaults.zoom, posix } = Map;
-  var Jawg_Dark = L.tileLayer(
-    "https://tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}",
-    {
-      attribution:
-        '<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      minZoom: 0,
-      maxZoom: 22,
-      accessToken: "<your accessToken>",
-    }
-  );
-  return (
-    <MapContainer
-      center={posix}
-      zoom={zoom}
-      scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={posix} draggable={false}>
-        <Popup>Hey ! I study here</Popup>
-      </Marker>
-    </MapContainer>
-  );
+  // const { zoom = defaults.zoom, posix } = Map;
+  // var Jawg_Dark = L.tileLayer(
+  //   "https://tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}",
+  //   {
+  //     attribution:
+  //       '<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  //     minZoom: 0,
+  //     maxZoom: 22,
+  //     accessToken: "<your accessToken>",
+  //   }
+  // );
+  // return (
+  //   <MapContainer
+  //     center={posix}
+  //     zoom={zoom}
+  //     scrollWheelZoom={false}
+  //     style={{ height: "100%", width: "100%" }}
+  //   >
+  //     <TileLayer
+  //       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  //       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  //     />
+  //     <Marker position={posix} draggable={false}>
+  //       <Popup>Hey ! I study here</Popup>
+  //     </Marker>
+  //   </MapContainer>
+  // );
 };
 
 export default Map;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, JSX } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -35,8 +35,19 @@ const TempText = styled.span`
   }
 `;
 
-export default function SimpleWidget(props) {
-  const [weather, setWeather] = useState({});
+interface WeatherData {
+  icon: JSX.Element;
+  temperature: string;
+}
+
+interface SimpleWidgetProps {
+  params: string;
+  days: number;
+  title: string;
+}
+
+export default function SimpleWidget(props: SimpleWidgetProps) {
+  const [weather, setWeather] = useState<WeatherData | {}>({});
   useEffect(() => {
     const fetchWeather = async () => {
       try {
@@ -60,15 +71,15 @@ export default function SimpleWidget(props) {
       }
     };
     fetchWeather();
-  }, []);
+  }, [props.days, props.params]);
   return (
     <WeatherWidgetWrapper>
       <div className="row">
         <WidgetTitle>{props.title}</WidgetTitle>
       </div>
       <div className="row">
-        <IconArea>{weather.icon}</IconArea>
-        <TempText>{weather.temperature}</TempText>
+        <IconArea>{(weather as WeatherData).icon}</IconArea>
+        <TempText>{(weather as WeatherData).temperature}</TempText>
       </div>
     </WeatherWidgetWrapper>
   );
