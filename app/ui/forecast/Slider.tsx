@@ -8,6 +8,7 @@ export default class Slider extends React.Component {
   handleChange = (values: number[]) => {
     this.setState({ values });
     useStore.setState({ position: values });
+    // console.log("newPosition ", useStore.getState().position);
   };
 
   render() {

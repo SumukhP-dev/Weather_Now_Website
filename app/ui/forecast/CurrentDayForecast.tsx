@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider";
 import Image from "next/image";
@@ -9,7 +11,6 @@ const CurrentDayForecast = ({ data }: any) => {
     const militaryTime = currentTime.substring(11, 13);
     let convertedTime = militaryTime as unknown as number;
 
-    console.log(convertedTime);
     if (convertedTime == 0) {
       convertedTime = 12;
     }
