@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 import environ
 from pathlib import Path
 
@@ -20,16 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gafasf=i3t+o0)58by0@*$cj52_i)a8=*9w3n&r244*y#i5*of'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,9 +35,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-
-    # installed apps
-    "data"
+    "django_nextjs",
+    "data",
     "rest_framework",
     "djoser",
     "rest_framework_simplejwt.token_blacklist",
@@ -81,6 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DataCore.wsgi.application'
 
+DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD')
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -90,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'defaultdb',
         'USER': 'avnadmin',
-        'PASSWORD': env("DATABASE_PASSWORD"),
-        'HOST': 'mysql-10ab44ad-weather-now.h.aivencloud.com',
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': 'pg-3b095bfb-weather-now.g.aivencloud.com',
         'PORT': '21477'
     }
 }
@@ -115,8 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    'http://localhost:3000'
 ]
 
 
@@ -130,7 +122,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
