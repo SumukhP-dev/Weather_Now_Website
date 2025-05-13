@@ -17,10 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from data.views import openai_chat_request
 from routers import router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     path('api/', include((router.urls, 'core_api'), namespace='core_api')),
+    path('api/res/', openai_chat_request, name='openai_chat_request'),
+
+    path('api-auth/', include('rest_framework.urls'))
 ]

@@ -24,6 +24,9 @@ const NavBar = () => {
           <Link href="/forecast">Forecast</Link>
         </div>
         <div className="p-3">
+          <Link href="/aichatbot">AI Chatbot</Link>
+        </div>
+        <div className="p-3">
           <Link href="/login">Login</Link>
         </div>
       </div>

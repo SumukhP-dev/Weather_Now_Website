@@ -23,7 +23,7 @@ const ResponsiveCarousel = ({ items }: any) => {
         {responsive.features.map((item: any) => (
           <>
             {/* Alert card */}
-            <Card className="bg-slate-500 text-white p-5 m-3 min-h-full">
+            <Card className="bg-slate-500 text-white p-5 m-3 min-h-dvh max-w-lg"            >
               <CardHeader>
                 <p key={item}>{item.properties.event}</p>
               </CardHeader>
