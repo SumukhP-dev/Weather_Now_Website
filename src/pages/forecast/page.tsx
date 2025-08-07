@@ -1,11 +1,12 @@
 "use client";
 
-import CurrentDayForecast from "@/react-weather-now-website/src/components/forecast/CurrentDayForecast.tsx";
-import NavBar from "@/react-weather-now-website/src/components/NavBar.tsx";
+import CurrentDayForecast from "@/src/components/forecast/CurrentDayForecast";
+import Layout from "@/src/components/Layout";
+import NavBar from "@/src/components/NavBar";
 import axios from "axios";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useStore } from "../../react-weather-now-website/lib/store.ts";
+import { useStore } from "../../../lib/store.tsx";
 
 export default function ForecastPage() {
   const [currentDayForecast, setCurrentDayForecast] = useState({});
@@ -75,7 +76,7 @@ export default function ForecastPage() {
 
   return (
     <>
-      <NavBar />
+      <Layout>
       {/* Current Day Forecast */}
       <div className="">
         <h1 className="flex mt-5 h-10 items-center justify-center text-6xl">
@@ -109,6 +110,7 @@ export default function ForecastPage() {
         {/* Current Day Forecats Widget */}
         <CurrentDayForecast data={currentDayForecast} />
       </div>
+      </Layout>
     </>
   );
 }

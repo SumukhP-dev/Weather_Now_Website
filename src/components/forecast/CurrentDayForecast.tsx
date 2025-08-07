@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider.tsx";
-import Image from "next/image";
-import { useStore } from "../../../lib/store.ts";
+import { useStore } from "../../../lib/store.tsx";
 
 const CurrentDayForecast = ({ data }: any) => {
   const time = useStore.getState().position;
@@ -34,12 +33,12 @@ const CurrentDayForecast = ({ data }: any) => {
             {/* Left */}
             <div className="relative flex justify-start pt-12 ">
               <div className="flex flex-col items-center mr-10">
-                <Image
+                <img
                   src={data[time[0] - 1].icon}
                   alt=""
                   width="200"
                   height="200"
-                ></Image>
+                ></img>
                 <p className="text-2xl p-5">
                   {data[time[0] - 1].shortForecast}
                 </p>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 
 const Weather = ({ data }: any) => {
   const renderWeatherWidget = () => {
@@ -10,7 +9,7 @@ const Weather = ({ data }: any) => {
             {/* Left */}
             <div className="relative flex justify-start pt-12 mr-20 ">
               <div className="flex flex-col items-center">
-                <Image
+                <img
                   src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
                   alt="/"
                   width="100"

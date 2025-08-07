@@ -1,12 +1,11 @@
 import React from "react";
-import spinner from "../../public/spinner.gif";
-import Image from "next/image";
+import spinner from "../..//assets/gifs/spinner.gif"
 
 const Spinner = () => {
   return (
     <>
       <div className="h-screen flex justify-center items-start mt-10">
-        <Image className="w-[2]" src={spinner} alt="loading.." />
+        <img className="w-[2]" src={spinner} alt="loading.." />
       </div>
     </>
   );

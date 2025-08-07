@@ -1,9 +1,9 @@
 "use client";
 
-import NavBar from "@/react-weather-now-website/src/components/NavBar";
-import ChatCard from "../../react-weather-now-website/src/components/ChatCard";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
+import ChatCard from "@/src/components/ChatCard";
+import Layout from "@/src/components/Layout";
 
 interface ChatMessage {
   prompt: string;
@@ -100,8 +100,7 @@ export default function AIChatBotPage() {
 
   return (
     <>
-      <NavBar />
-
+      <Layout>
       <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
         AI Chatbot
       </h1>
@@ -139,6 +138,7 @@ export default function AIChatBotPage() {
           </div>
         </div>
       </div>
+      </Layout>
     </>
   );
 }

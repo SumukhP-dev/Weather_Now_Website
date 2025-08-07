@@ -1,16 +1,12 @@
 "use client";
 
-import NavBar from "@/react-weather-now-website/src/components/NavBar";
-import { useState } from "react";
+
 import axios from "axios";
+import { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-import Weather from "./src/components/home/Weather";
-import Spinner from "@/react-weather-now-website/src/components/Spinner";
-import Alerts from "@/react-weather-now-website/src/components/home/Alerts";
 import states from "us-state-converter";
-import { Geo } from "@vercel/functions";
-import Map from "./src/components/home/Map";
-import dynamic from "next/dynamic";
+import Layout from "../../components/Layout";
 
 export default function HomePage() {
   const [weather, setWeather] = useState({});
@@ -110,7 +106,7 @@ export default function HomePage() {
 
   return (
     <>
-      <NavBar />
+      <Layout>
 
       {/* Welcome Section */}
       <div className="">
@@ -178,6 +174,8 @@ export default function HomePage() {
       </div>
 
       <SearchAlerts />
+
+      </Layout>
     </>
   );
 }
