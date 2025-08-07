@@ -1,16 +1,14 @@
-import NavBar from "@/react-weather-now-website/src/components/NavBar";
-import team from "@/app/team.png";
-import Image from "next/image";
-import { Button } from "@/react-weather-now-website/src/components/Button";
-import facebook_logo from "@/app/icons/facebook_icon.png";
-import twitter_logo from "@/app/icons/twitter_logo.png";
-import instagram_logo from "@/app/icons/instagram_icon.png";
-import Link from "next/link";
+import { Button } from "@/src/components/Button";
+import twitter_logo from "../../../assets/images/logos/twitter_logo.png"
+import instagram_logo from "../../../assets/images/logos/instagram_logo.png"
+import facebook_logo from "../../../assets/images/logos/facebook_logo.png"
+import team_image from "../../../assets/images/team/team.jpeg"
+import Layout from "@/src/components/Layout";
 
 export default function ContactPage() {
   return (
     <>
-      <NavBar />
+      <Layout>
       <h1 className="mt-5 flex h-10 items-center justify-center text-6xl">
         Contact Us
       </h1>
@@ -29,8 +27,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
             >
               <Button className="w-20 h-20" aria-disabled={true}>
-                {" "}
-                <Image src={facebook_logo} alt="facebook logo"></Image>
+                <img src={facebook_logo} alt="facebook logo"></img>
               </Button>
             </a>
 
@@ -40,8 +37,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
             >
               <Button className="w-20 h-20 ml-5" aria-disabled={true}>
-                {" "}
-                <Image src={twitter_logo} alt="facebook logo"></Image>
+                <img src={twitter_logo} alt="facebook logo"></img>
               </Button>
             </a>
 
@@ -51,14 +47,14 @@ export default function ContactPage() {
               rel="noopener noreferrer"
             >
               <Button className="w-20 h-20 ml-5" aria-disabled={true}>
-                {" "}
-                <Image src={instagram_logo} alt="facebook logo"></Image>
+                <img src={instagram_logo} alt="facebook logo"></img>
               </Button>
             </a>
           </div>
         </div>
-        <Image className=" w-1/2" src={team} alt="picture of team"></Image>
+        <img className="w-1/2" src={team_image} alt="picture of team"></img>
       </div>
+      </Layout>
     </>
   );
 }

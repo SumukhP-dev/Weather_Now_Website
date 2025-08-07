@@ -1,5 +1,4 @@
 import React, { useState, useEffect, JSX } from "react";
-import Image from "next/image";
 import styled from "styled-components";
 
 const WeatherWidgetWrapper = styled.div`
@@ -57,7 +56,7 @@ export default function SimpleWidget(props: SimpleWidgetProps) {
         const weatherData = await weatherReq.json();
         setWeather({
           icon: (
-            <Image
+            <img
               src={"https:" + weatherData.current.condition.icon}
               alt={`It is ${weatherData.current.temp_c} in your city`}
               width={80}

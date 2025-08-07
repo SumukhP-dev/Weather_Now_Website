@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import weather_now_logo from "@/app/weather_now_logo.png";
-import Image from "next/image";
+import weather_now_logo from "../assets/images/logos/weather_now_logo.png"
 
 const Nav = styled.nav``;
 
@@ -11,23 +10,23 @@ const NavBar = () => {
   return (
     <Nav className="bg-white text-black flex h-15 font-bold mb-10">
       <div className="w-40 h-15 object-fit m-2">
-        <Image src={weather_now_logo} alt="weather logo"></Image>
+        <img src={weather_now_logo} alt="weather logo"></img>
       </div>
       <div className="flex mt-2">
         <div className="p-3">
-          <Link href="/">Home</Link>
+          <Link to="/">Home</Link>
         </div>
         <div className="p-3">
-          <Link href="/contact">Contact Us</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
         <div className="p-3">
-          <Link href="/forecast">Forecast</Link>
+          <Link to="/forecast">Forecast</Link>
         </div>
         <div className="p-3">
-          <Link href="/aichatbot">AI Chatbot</Link>
+          <Link to="/aichatbot">AI Chatbot</Link>
         </div>
         <div className="p-3">
-          <Link href="/login">Login</Link>
+          <Link to="/login">Login</Link>
         </div>
       </div>
     </Nav>

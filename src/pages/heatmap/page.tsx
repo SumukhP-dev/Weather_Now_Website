@@ -1,10 +1,11 @@
-import NavBar from "@/react-weather-now-website/src/components/NavBar";
+import Layout from "@/src/components/Layout";
 
 export default function HeatmapPage() {
   return (
     <>
-      <NavBar />
+      <Layout>
       <h1>Heatmap</h1>
+      </Layout>
     </>
   );
 }

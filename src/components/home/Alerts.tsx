@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import { useState } from "react";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -9,8 +10,7 @@ const ResponsiveCarousel = ({ items }: any) => {
   console.log(responsive);
   return (
     <div
-      className="self-stretch
-"
+      className="self-stretch"
     >
       <Carousel
         centerMode
@@ -27,13 +27,13 @@ const ResponsiveCarousel = ({ items }: any) => {
               <CardHeader>
                 <p key={item}>{item.properties.event}</p>
               </CardHeader>
-              <CardBody>
+              <CardContent>
                 <p key={item}>Severity: {item.properties.severity}</p>
                 <br />
                 <p key={item}>Area Affected: {item.properties.areaDesc}</p>
                 <br />
                 <p key={item}>Description: {item.properties.description}</p>
-              </CardBody>
+              </CardContent>
             </Card>
           </>
         ))}
