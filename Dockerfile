@@ -1,26 +1,22 @@
-# Use the Alpine version of the Node.js image
-FROM node:22.14.0
+FROM node:20-alpine AS development-dependencies-env
+COPY . /app
+WORKDIR /app
+RUN npm ci
 
-# Set the working directory
-WORKDIR /app/frontend/
+FROM node:20-alpine AS production-dependencies-env
+COPY ./package.json package-lock.json /app/
+WORKDIR /app
+RUN npm ci --omit=dev
 
-# First copy package.json and package-lock.json
-COPY package*.json .
-
-# Install dependencies
-RUN npm install
-
-# Copy all source code to the working directory
-COPY . .
-
-# Build the application
+FROM node:20-alpine AS build-env
+COPY . /app/
+COPY --from=development-dependencies-env /app/node_modules /app/node_modules
+WORKDIR /app
 RUN npm run build
 
-# React.js listens on port 3000 by default
-EXPOSE 3000
-
-# Uncomment the line below to run in development mode with live reloading
-CMD ["npm", "run", "dev"]
-
-# Uncomment the line below to run in production mode
-# CMD ["npm", "start"]
+FROM node:20-alpine
+COPY ./package.json package-lock.json /app/
+COPY --from=production-dependencies-env /app/node_modules /app/node_modules
+COPY --from=build-env /app/build /app/build
+WORKDIR /app
+CMD ["npm", "run", "start"]
