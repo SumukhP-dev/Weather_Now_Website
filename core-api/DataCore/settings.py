@@ -10,17 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-import environ
-from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+from django.conf import settings
+from dotenv import load_dotenv
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+# Load environment variables from .env file
+load_dotenv()
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY=os.getenv("SECRET_KEY")
+
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
@@ -74,6 +72,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DataCore.wsgi.application'
 
 DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD')
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

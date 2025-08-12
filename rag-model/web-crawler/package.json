@@ -1,0 +1,53 @@
+{
+	"name": "site2pdf-cli",
+	"version": "0.1.6",
+	"type": "module",
+	"description": "Generate comprehensive PDFs of entire websites, ideal for RAG. ",
+	"bin": {
+		"site2pdf": "bin/site2pdf.js"
+	},
+	"scripts": {
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"start": "node dist/index.js",
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc",
+		"publish": "npm publish",
+		"lint": "biome lint",
+		"format": "biome format"
+	},
+	"author": "laiso",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/laiso/site2pdf.git"
+	},
+	"keywords": [
+		"crawler",
+		"PDF"
+	],
+	"homepage": "https://github.com/laiso/site2pdf#readme",
+	"bugs": {
+		"url": "https://github.com/laiso/site2pdf/issues"
+	},
+	"files": [
+		"dist",
+		"bin"
+	],
+	"devDependencies": {
+		"@babel/core": "^7.26.0",
+		"@babel/preset-env": "^7.26.0",
+		"@babel/preset-typescript": "^7.26.0",
+		"@biomejs/biome": "1.8.3",
+		"@types/jest": "^29.5.14",
+		"babel-jest": "^29.7.0",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.2.2",
+		"tsx": "^4.7.2",
+		"typescript": "^5.2.2"
+	},
+	"dependencies": {
+		"p-limit": "^6.1.0",
+		"pdf-lib": "^1.17.1",
+		"puppeteer": "^22.6.5"
+	}
+}
