@@ -6,6 +6,7 @@ import states from "us-state-converter";
 import Alerts from "~/components/home/Alerts";
 import Weather from "~/components/home/Weather";
 import Layout from "~/components/Layout";
+const weatherApiKey = import.meta.env.VITE_PUBLIC_WEATHER_KEY;
 
 export default function HomePage() {
   const [weather, setWeather] = useState({});
@@ -26,11 +27,11 @@ export default function HomePage() {
   }) => {
     const city = (document?.getElementById("cityInput") as HTMLInputElement)
       .value;
-    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherApiKey}`;
     axios.get(url).then((response) => {
       setLat(response.data[0].lat);
       setLon(response.data[0].lon);
-      const url2: string = `https://api.openweathermap.org/data/2.5/weather?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+      const url2: string = `https://api.openweathermap.org/data/2.5/weather?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${weatherApiKey}&units=imperial`;
       resolve(url2);
     });
   };

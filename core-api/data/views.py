@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from groq import Groq
 from django.views.decorators.csrf import csrf_protect
 import os
+from asgiref.sync import sync_to_async
+from django.shortcuts import render
 
 env = environ.Env()
 environ.Env.read_env()

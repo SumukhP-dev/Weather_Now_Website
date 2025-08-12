@@ -1,11 +1,8 @@
+import HomePage from "~/pages/home";
 import type { Route } from "./+types/home";
-import HomePage from "../home/home";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: "WeatherNow" }];
 }
 
 export default function Home() {

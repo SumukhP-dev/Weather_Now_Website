@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider.js";
-import { useStore } from "../../../lib/store.js";
+import { useStore } from "../../../lib/store.tsx";
 
 const CurrentDayForecast = ({ data }: any) => {
   const time = useStore.getState().position;

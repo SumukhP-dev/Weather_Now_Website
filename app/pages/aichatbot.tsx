@@ -2,8 +2,8 @@
 
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
-import ChatCard from "@/src/components/ChatCard";
-import Layout from "@/src/components/Layout";
+import ChatCard from "../components/ChatCard";
+import Layout from "../components/Layout";
 
 interface ChatMessage {
   prompt: string;
@@ -101,43 +101,43 @@ export default function AIChatBotPage() {
   return (
     <>
       <Layout>
-      <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
-        AI Chatbot
-      </h1>
-      <div className="card mx-20">
-        <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">
-          <div className="searchBar-container mb-5">
-            <form
-              onSubmit={handleSend}
-              className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
-            >
-              <div>
-                <input
-                  id="textInput"
-                  type="text"
-                  placeholder="Ask me anything..."
-                  className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
-                />
-              </div>
-              <button>
-                <BsSearch size={20} />
-              </button>
-            </form>
-          </div>
-
-          <div className="chat-container grid grid-cols-2">
-            {/* Render response chat messages */}
-            {
-              (console.log("chatMessages: " + chatMessages),
-              chatMessages.map((message: ChatMessage, index: number) => (
-                <div className="" key={index}>
-                  <ChatCard data={[message.response, index]} />
+        <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
+          AI Chatbot
+        </h1>
+        <div className="card mx-20">
+          <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">
+            <div className="searchBar-container mb-5">
+              <form
+                onSubmit={handleSend}
+                className="flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2xl"
+              >
+                <div>
+                  <input
+                    id="textInput"
+                    type="text"
+                    placeholder="Ask me anything..."
+                    className="bg-transparent border-none focus:outline-none text-2xl text-white bg-black"
+                  />
                 </div>
-              )))
-            }
+                <button>
+                  <BsSearch size={20} />
+                </button>
+              </form>
+            </div>
+
+            <div className="chat-container grid grid-cols-2">
+              {/* Render response chat messages */}
+              {
+                (console.log("chatMessages: " + chatMessages),
+                chatMessages.map((message: ChatMessage, index: number) => (
+                  <div className="" key={index}>
+                    <ChatCard data={[message.response, index]} />
+                  </div>
+                )))
+              }
+            </div>
           </div>
         </div>
-      </div>
       </Layout>
     </>
   );

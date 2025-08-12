@@ -1,12 +1,12 @@
 "use client";
 
-import CurrentDayForecast from "@/src/components/forecast/CurrentDayForecast";
-import Layout from "@/src/components/Layout";
-import NavBar from "@/src/components/NavBar";
 import axios from "axios";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useStore } from "../../../lib/store.js";
+import { useStore } from "../../lib/store.tsx";
+import Layout from "~/components/Layout.tsx";
+import CurrentDayForecast from "~/components/forecast/CurrentDayForecast.tsx";
+const weatherApiKey = import.meta.env.VITE_PUBLIC_WEATHER_KEY;
 
 export default function ForecastPage() {
   const [currentDayForecast, setCurrentDayForecast] = useState({});
@@ -24,7 +24,7 @@ export default function ForecastPage() {
   }) => {
     const city = (document?.getElementById("cityInput") as HTMLInputElement)
       .value;
-    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherApiKey}`;
     axios.get(url).then((response) => {
       // console.log("lat: " + response.data[0].lat);
       // console.log("lon: " + response.data[0].lon);
@@ -69,7 +69,7 @@ export default function ForecastPage() {
     setLoading(false);
   };
 
-  useStore.subscribe((state) => {
+  useStore.subscribe(() => {
     // console.log("state", state, "oldState", oldState);
     fetchCurrentDayForecast({ preventDefault: () => {} });
   });

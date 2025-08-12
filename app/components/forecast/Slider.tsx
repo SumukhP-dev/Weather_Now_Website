@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Range } from "react-range";
-import { useStore } from "../../../lib/store.js";
+import { useStore } from "../../../lib/store.tsx";
 
 export default class Slider extends React.Component {
   state = { values: [24] };
