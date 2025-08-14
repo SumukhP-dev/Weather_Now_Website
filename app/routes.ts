@@ -6,4 +6,5 @@ export default [
   route("contact", "routes/contact.tsx"),
   route("error", "routes/error.tsx"),
   route("forecast", "routes/forecast.tsx"),
+  route("ragaichatbot", "routes/ragaichatbot.tsx"),
 ] satisfies RouteConfig;

@@ -25,6 +25,9 @@ const NavBar = () => {
         <div className="p-3">
           <Link to="/aichatbot">AI Chatbot</Link>
         </div>
+        <div className="p-3">
+          <Link to="/ragaichatbot">RAG AI Chatbot</Link>
+        </div>
       </div>
     </Nav>
   );

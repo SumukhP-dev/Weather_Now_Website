@@ -10,19 +10,19 @@ interface ChatMessage {
   response: string;
 }
 
-export default function AIChatBotPage() {
+export default function RAGAIChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
 
-  const get_openai_chat_request = async (
+  const get_rag_ai_chat_request = async (
     resolve: {
       (value: Response): void;
       (arg0: any): void;
     },
     chatPrompt: string
   ) => {
-    await fetch(`http://127.0.0.1:8000/api/res/openai/?prompt=${chatPrompt}`, {
+    await fetch(`http://127.0.0.1:8000/api/res/rag/?prompt=${chatPrompt}`, {
       method: "GET",
     }).then((data) => {
       resolve(data);
@@ -37,7 +37,7 @@ export default function AIChatBotPage() {
     chatPrompt: string
   ) => {
     let myPromise = new Promise<Response>(async function (resolve) {
-      get_openai_chat_request(resolve, chatPrompt);
+      get_rag_ai_chat_request(resolve, chatPrompt);
     });
 
     const data = await myPromise;
@@ -102,7 +102,7 @@ export default function AIChatBotPage() {
     <>
       <Layout>
         <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
-          AI Chatbot
+          RAG AI Chatbot
         </h1>
         <div className="card mx-20">
           <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">

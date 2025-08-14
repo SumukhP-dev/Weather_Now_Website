@@ -11,3 +11,4 @@ psycopg2
 groq
 django-getenv
 python-dotenv
+gradio_client
