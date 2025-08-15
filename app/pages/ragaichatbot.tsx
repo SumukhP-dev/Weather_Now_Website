@@ -22,9 +22,12 @@ export default function RAGAIChatBotPage() {
     },
     chatPrompt: string
   ) => {
-    await fetch(`http://127.0.0.1:8000/api/res/rag/?prompt=${chatPrompt}`, {
-      method: "GET",
-    }).then((data) => {
+    await fetch(
+      `https://weather-now-website.onrender.com/api/res/rag/?prompt=${chatPrompt}`,
+      {
+        method: "GET",
+      }
+    ).then((data) => {
       resolve(data);
     });
   };
