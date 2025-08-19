@@ -10,7 +10,7 @@ interface ChatMessage {
   response: string;
 }
 
-export default function AIChatBotPage() {
+export default function OpenAIAIChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -105,7 +105,7 @@ export default function AIChatBotPage() {
     <>
       <Layout>
         <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
-          AI Chatbot
+          OpenAI AI Chatbot
         </h1>
         <div className="card mx-20">
           <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">
