@@ -15,7 +15,7 @@ def gemini_chat_request(request):
     prompt = request.GET.get('prompt')
 
     client = genai.Client(api_key=GEMINI_API_KEY)
-    chat = client.chats.create(model="gemini-2.5-pro")
+    chat = client.chats.create(model="gemini-2.5-flash-lite")
 
     response = chat.send_message(prompt)
     print(response.text)

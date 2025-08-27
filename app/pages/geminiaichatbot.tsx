@@ -57,7 +57,7 @@ export default function GeminiIChatBotPage() {
       console.log("sentChatMessage: ", sentChatMessage);
       console.log("responseChatMessage: ", responseChatMessage);
 
-      setChatMessages((prevMessages) => [...prevMessages, responseChatMessage]);
+      setChatMessages([...chatMessages, sentChatMessage, responseChatMessage]);
     } catch (error) {
       console.error("Error fetching chat completion:", error);
       const errorMessage = "Error fetching chat completion";
@@ -69,7 +69,7 @@ export default function GeminiIChatBotPage() {
       console.log("sentChatMessage: ", sentChatMessage);
       console.log("errorChatMessage: ", errorChatMessage);
 
-      setChatMessages((prevMessages) => [...prevMessages, errorChatMessage]);
+      setChatMessages([...chatMessages, sentChatMessage, errorChatMessage]);
     } finally {
       setIsLoading(false);
     }
