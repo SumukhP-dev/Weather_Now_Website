@@ -13,41 +13,19 @@ interface ChatMessage {
 export default function OpenAIAIChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
-  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const get_openai_chat_request = async (
-    resolve: {
-      (value: Response): void;
-      (arg0: any): void;
-    },
     chatPrompt: string
-  ) => {
-    await fetch(
+  ): Promise<string> => {
+    const response = await fetch(
       `https://weather-now-website.onrender.com/api/res/openai/?prompt=${chatPrompt}`,
       {
         method: "GET",
       }
-    ).then((data) => {
-      resolve(data);
-    });
-  };
+    );
 
-  const get_request_string = async (
-    resolve: {
-      (value: string): void;
-      (arg0: string): void;
-    },
-    chatPrompt: string
-  ) => {
-    let myPromise = new Promise<Response>(async function (resolve) {
-      get_openai_chat_request(resolve, chatPrompt);
-    });
-
-    const data = await myPromise;
-
-    data.text().then((text) => {
-      resolve(text);
-    });
+    return await response.text();
   };
 
   // Function to handle button click
@@ -69,11 +47,7 @@ export default function OpenAIAIChatBotPage() {
     const chatPrompt = `You: ${inputValue}`;
 
     try {
-      let myPromise2 = new Promise<string>(async function (resolve) {
-        get_request_string(resolve, chatPrompt);
-      });
-
-      const responseContent = await myPromise2;
+      const responseContent = await get_openai_chat_request(chatPrompt);
 
       const responseChatMessage: ChatMessage = {
         prompt: chatPrompt,
@@ -83,21 +57,21 @@ export default function OpenAIAIChatBotPage() {
       console.log("sentChatMessage: ", sentChatMessage);
       console.log("responseChatMessage: ", responseChatMessage);
 
-      setChatMessages([...chatMessages, sentChatMessage, responseChatMessage]);
+      setChatMessages((prevMessages) => [...prevMessages, responseChatMessage]);
     } catch (error) {
       console.error("Error fetching chat completion:", error);
       const errorMessage = "Error fetching chat completion";
-      const responseChatMessage: ChatMessage = {
+      const errorChatMessage: ChatMessage = {
         prompt: chatPrompt,
         response: errorMessage,
       };
 
       console.log("sentChatMessage: ", sentChatMessage);
-      console.log("responseChatMessage: ", responseChatMessage);
+      console.log("errorChatMessage: ", errorChatMessage);
 
-      setChatMessages([...chatMessages, sentChatMessage, responseChatMessage]);
+      setChatMessages((prevMessages) => [...prevMessages, errorChatMessage]);
     } finally {
-      setInputValue("");
+      setIsLoading(false);
     }
   };
 
@@ -130,14 +104,16 @@ export default function OpenAIAIChatBotPage() {
 
             <div className="chat-container grid grid-cols-2">
               {/* Render response chat messages */}
-              {
-                (console.log("chatMessages: " + chatMessages),
-                chatMessages.map((message: ChatMessage, index: number) => (
-                  <div className="" key={index}>
-                    <ChatCard data={[message.response, index]} />
-                  </div>
-                )))
-              }
+              {chatMessages.map((message: ChatMessage, index: number) => (
+                <div className="" key={index}>
+                  <ChatCard data={[message.response, index]} />
+                </div>
+              ))}
+              {isLoading && (
+                <div className="col-start-1">
+                  <ChatCard message="Thinking..." />
+                </div>
+              )}
             </div>
           </div>
         </div>
