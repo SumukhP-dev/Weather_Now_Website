@@ -10,16 +10,16 @@ interface ChatMessage {
   response: string;
 }
 
-export default function OpenAIAIChatBotPage() {
+export default function GeminiIChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const get_openai_chat_request = async (
+  const get_gemini_chat_request = async (
     chatPrompt: string
   ): Promise<string> => {
     const response = await fetch(
-      `https://weather-now-website.onrender.com/api/res/openai/?prompt=${chatPrompt}`,
+      `https://weather-now-website.onrender.com/api/res/gemini/?prompt=${chatPrompt}`,
       {
         method: "GET",
       }
@@ -47,7 +47,7 @@ export default function OpenAIAIChatBotPage() {
     const chatPrompt = `You: ${inputValue}`;
 
     try {
-      const responseContent = await get_openai_chat_request(chatPrompt);
+      const responseContent = await get_gemini_chat_request(chatPrompt);
 
       const responseChatMessage: ChatMessage = {
         prompt: chatPrompt,
@@ -79,7 +79,7 @@ export default function OpenAIAIChatBotPage() {
     <>
       <Layout>
         <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
-          OpenAI AI Chatbot
+          Gemini Chatbot
         </h1>
         <div className="card mx-20">
           <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">
