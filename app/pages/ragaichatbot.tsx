@@ -13,41 +13,19 @@ interface ChatMessage {
 export default function RAGAIChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
-  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const get_rag_ai_chat_request = async (
-    resolve: {
-      (value: Response): void;
-      (arg0: any): void;
-    },
     chatPrompt: string
-  ) => {
-    await fetch(
+  ): Promise<string> => {
+    const response = await fetch(
       `https://weather-now-website.onrender.com/api/res/rag/?prompt=${chatPrompt}`,
       {
         method: "GET",
       }
-    ).then((data) => {
-      resolve(data);
-    });
-  };
+    );
 
-  const get_request_string = async (
-    resolve: {
-      (value: string): void;
-      (arg0: string): void;
-    },
-    chatPrompt: string
-  ) => {
-    let myPromise = new Promise<Response>(async function (resolve) {
-      get_rag_ai_chat_request(resolve, chatPrompt);
-    });
-
-    const data = await myPromise;
-
-    data.text().then((text) => {
-      resolve(text);
-    });
+    return await response.text();
   };
 
   // Function to handle button click
@@ -69,11 +47,7 @@ export default function RAGAIChatBotPage() {
     const chatPrompt = `You: ${inputValue}`;
 
     try {
-      let myPromise2 = new Promise<string>(async function (resolve) {
-        get_request_string(resolve, chatPrompt);
-      });
-
-      const responseContent = await myPromise2;
+      const responseContent = await get_rag_ai_chat_request(chatPrompt);
 
       const responseChatMessage: ChatMessage = {
         prompt: chatPrompt,
@@ -87,17 +61,17 @@ export default function RAGAIChatBotPage() {
     } catch (error) {
       console.error("Error fetching chat completion:", error);
       const errorMessage = "Error fetching chat completion";
-      const responseChatMessage: ChatMessage = {
+      const errorChatMessage: ChatMessage = {
         prompt: chatPrompt,
         response: errorMessage,
       };
 
       console.log("sentChatMessage: ", sentChatMessage);
-      console.log("responseChatMessage: ", responseChatMessage);
+      console.log("errorChatMessage: ", errorChatMessage);
 
-      setChatMessages([...chatMessages, sentChatMessage, responseChatMessage]);
+      setChatMessages([...chatMessages, sentChatMessage, errorChatMessage]);
     } finally {
-      setInputValue("");
+      setIsLoading(false);
     }
   };
 
@@ -105,7 +79,7 @@ export default function RAGAIChatBotPage() {
     <>
       <Layout>
         <h1 className="mt-5 flex h-10 m-10 items-center justify-center text-6xl">
-          RAG AI Chatbot
+          RAG WeatherNews Chatbot
         </h1>
         <div className="card mx-20">
           <div className="card-body bg-gray-800 h-dvh p-5 rounded-2xl">
@@ -130,14 +104,16 @@ export default function RAGAIChatBotPage() {
 
             <div className="chat-container grid grid-cols-2">
               {/* Render response chat messages */}
-              {
-                (console.log("chatMessages: " + chatMessages),
-                chatMessages.map((message: ChatMessage, index: number) => (
-                  <div className="" key={index}>
-                    <ChatCard data={[message.response, index]} />
-                  </div>
-                )))
-              }
+              {chatMessages.map((message: ChatMessage, index: number) => (
+                <div className="" key={index}>
+                  <ChatCard data={[message.response, index]} />
+                </div>
+              ))}
+              {isLoading && (
+                <div className="col-start-1">
+                  <ChatCard message="Thinking..." />
+                </div>
+              )}
             </div>
           </div>
         </div>

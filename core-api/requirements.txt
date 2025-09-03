@@ -1,3 +1,4 @@
+psycopg2-binary
 djangorestframework
 markdown
 django-filter
@@ -8,7 +9,8 @@ django-cors-headers
 django_nextjs
 djoser
 psycopg2
-groq
+google-genai
 django-getenv
 python-dotenv
 gradio_client
+gunicorn

@@ -23,7 +23,7 @@ const NavBar = () => {
           <Link to="/forecast">Forecast</Link>
         </div>
         <div className="p-3">
-          <Link to="/openaiaichatbot">OpenAI AI Chatbot</Link>
+          <Link to="/geminiaichatbot">Gemini AI Chatbot</Link>
         </div>
         <div className="p-3">
           <Link to="/ragaichatbot">RAG AI Chatbot</Link>
