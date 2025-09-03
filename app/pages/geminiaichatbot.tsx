@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import ChatCard from "../components/ChatCard";
 import Layout from "../components/Layout";
+import TypingIndicator from "~/components/TypingIndicator";
 
 interface ChatMessage {
   prompt: string;
@@ -45,6 +46,8 @@ export default function GeminiIChatBotPage() {
     // Add the input value to the chat messages
 
     const chatPrompt = `You: ${inputValue}`;
+
+    setIsLoading(true);
 
     try {
       const responseContent = await get_gemini_chat_request(chatPrompt);
@@ -102,18 +105,20 @@ export default function GeminiIChatBotPage() {
               </form>
             </div>
 
-            <div className="chat-container grid grid-cols-2">
-              {/* Render response chat messages */}
-              {chatMessages.map((message: ChatMessage, index: number) => (
-                <div className="" key={index}>
-                  <ChatCard data={[message.response, index]} />
+            <div className="overflow-auto scrollbar scrollbar-thumb-blue-500 scrollbar-track-gray-200">
+              <div className="chat-container grid grid-cols-2">
+                {/* Render response chat messages */}
+                {chatMessages.map((message: ChatMessage, index: number) => (
+                  <div className="" key={index}>
+                    <ChatCard data={[message.response, index]} />
+                  </div>
+                ))}
+                {isLoading && (
+                <div className="flex justify-start">
+                  <TypingIndicator />
                 </div>
-              ))}
-              {isLoading && (
-                <div className="col-start-1">
-                  <ChatCard message="Thinking..." />
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>

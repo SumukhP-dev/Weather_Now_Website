@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import ChatCard from "../components/ChatCard";
 import Layout from "../components/Layout";
+import TypingIndicator from "~/components/TypingIndicator";
 
 interface ChatMessage {
   prompt: string;
@@ -45,6 +46,8 @@ export default function RAGAIChatBotPage() {
     // Add the input value to the chat messages
 
     const chatPrompt = `You: ${inputValue}`;
+
+    setIsLoading(true);
 
     try {
       const responseContent = await get_rag_ai_chat_request(chatPrompt);
@@ -109,11 +112,11 @@ export default function RAGAIChatBotPage() {
                   <ChatCard data={[message.response, index]} />
                 </div>
               ))}
-              {isLoading && (
-                <div className="col-start-1">
-                  <ChatCard message="Thinking..." />
+                {isLoading && (
+                <div className="flex justify-start">
+                  <TypingIndicator />
                 </div>
-              )}
+                )}
             </div>
           </div>
         </div>
