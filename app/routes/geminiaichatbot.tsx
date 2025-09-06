@@ -1,5 +1,5 @@
-import GeminiAIChatBotPage from "~/pages/geminiaichatbot";
+import GeminiAiChatBotPage from "~/pages/geminiaichatbot";
 
 export default function GeminiIChatBot() {
-  return <GeminiAIChatBotPage />;
+  return <GeminiAiChatBotPage />;
 }

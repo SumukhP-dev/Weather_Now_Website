@@ -11,7 +11,7 @@ interface ChatMessage {
   response: string;
 }
 
-export default function GeminiIChatBotPage() {
+export default function GeminiAiChatBotPage() {
   // State to manage chat messages
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -114,9 +114,9 @@ export default function GeminiIChatBotPage() {
                   </div>
                 ))}
                 {isLoading && (
-                <div className="flex justify-start">
-                  <TypingIndicator />
-                </div>
+                  <div className="flex justify-start">
+                    <TypingIndicator />
+                  </div>
                 )}
               </div>
             </div>
